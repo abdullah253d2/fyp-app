@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 
 export default function Congrats({ navigation }) {
-  const onPressHandler = () => {navigation.navigate('V-Mall');}
+  const onPressHandler = () => {navigation.navigate('Buzcart');}
   return (
     <View style={styles.landing}>
       {/* <Text style={styles.label}>Congrats"</Text> */}

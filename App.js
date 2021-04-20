@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator, Stack } from '@react-navigation/stack';
 import Navbar from './components/navbar';
@@ -17,7 +16,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
-        name="V-Mall"
+        name="Buzcart"
         component={Landing}
         options={{header: () => null}}
         />
@@ -40,6 +39,6 @@ export default function App() {
         options={{header: () => null}}
         />
       </Stack.Navigator>
-    </NavigationContainer>
+          </NavigationContainer>
   );
 }
