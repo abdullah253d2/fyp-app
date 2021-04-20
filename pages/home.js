@@ -46,10 +46,6 @@ class Home extends React.Component {
         </View>
     );
   }
-  
-  login_submit = () => {
-    alert(`loging in`);this.props.navigation.navigate("Dashboard");
-  };
 }
 
 const styles = StyleSheet.create({

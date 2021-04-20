@@ -7,7 +7,7 @@ export default function Landing({ navigation }) {
   const onPressHandler1 = () => {navigation.navigate('Register');}
   return (
     <View style={styles.landing}>
-      <Text style={styles.labelt}>V-Mall</Text>
+      <Text style={styles.labelt}>Buzcart</Text>
       <Text style={styles.label}>Create your new shop here for free!</Text>
         <Image source={require("../assets/home-img.jpg")}/>
         <View style={{paddingHorizontal: 20, width: '100%'}}>

@@ -9,8 +9,9 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
+// import ImgPick from '../components/imgpicker'
 
-class Login extends React.Component {
+class Yourdetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,12 +21,14 @@ class Login extends React.Component {
   }
   render() {
     return (
-<View style={styles.main}>
-         {/* <Navbar label="Login" /> */}
-         <Text style={styles.label}>Buzcart</Text>
-         <Text style={styles.labels}>Welcome to your online shop.</Text>
-           
-            <TextInput  style={styles.input}
+      <View style={styles.main}>
+        <ScrollView>
+            {/* <ImgPick /> */}
+          <Text style={styles.label}>Buzcart</Text>
+          <Text style={styles.labels}>Welcome to your online shop.</Text>
+
+          <TextInput
+            style={styles.input}
             placeholder="Number"
             keyboardType="numeric"
             onSubmitEditing={this._submit}
@@ -33,8 +36,9 @@ class Login extends React.Component {
             maxLength={11}
             value={this.state.number}
             onChangeText={(number) => this.setState({ number })}
-            />
-          <TextInput style={styles.input}
+          />
+          <TextInput
+            style={styles.input}
             secureTextEntry={true}
             placeholder="Password"
             value={this.state.password}
@@ -42,16 +46,21 @@ class Login extends React.Component {
             onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
-                <View style={{paddingHorizontal: 20, width: '100%'}}>
-                    <TouchableOpacity style={styles.button1} onPress={this.login_submit}>
-                    <Text style={styles.labelb1}>Login</Text>
-                    </TouchableOpacity>
-                </View>
-        </View>
+          <View style={{ paddingHorizontal: 20, width: "100%" }}>
+            <TouchableOpacity
+              style={styles.button1}
+              onPress={this.login_submit}
+            >
+              <Text style={styles.labelb1}>Login</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
   login_submit = () => {
-    alert(`loging in`);this.props.navigation.navigate("Dashboard");
+    alert(`loging in`);
+    this.props.navigation.navigate("Dashboard");
   };
 }
 
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
   labels: {
     fontSize: 18,
     color: "#000",
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   input: {
@@ -78,7 +87,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 50,
     color: "#000",
-    textAlign: 'center',
+    textAlign: "center",
   },
   button1: {
     borderWidth: 1,
@@ -96,4 +105,4 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 });
-export default Login;
+export default Yourdetails;

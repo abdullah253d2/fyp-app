@@ -1,33 +1,22 @@
-import * as React from "react";
+import  React, { useState } from "react";
 import { Button, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./home";
-// function HomeScreen({ navigation }) {
+import Yourdetails from "./yourdetails"
+
+// function NotificationsScreen({ navigation }) {
 //   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Button
-//         onPress={() => navigation.navigate('Notifications')}
-//         title="Go to notifications"
-//       />
+//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+//       <Button onPress={() => navigation.goBack()} title="Go back home" />
 //     </View>
 //   );
 // }
 
-function NotificationsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
-}
-
 const Drawer = createDrawerNavigator();
-
 export default function App() {
+  const [pname, setpname] = useState("Abdullah");
   return (
     <Drawer.Navigator
-      initialRouteName="Home"
       drawerPosition="left"
       drawerType="slide"
       hideStatusBar={true}
@@ -47,8 +36,8 @@ export default function App() {
         width: 250,
       }}
     >
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+      <Drawer.Screen name={pname} component={ HomeScreen } />
+      <Drawer.Screen name="Your Details" component={ Yourdetails } />
     </Drawer.Navigator>
   );
 }
