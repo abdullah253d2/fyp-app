@@ -9,7 +9,7 @@ export default function Landing({ navigation }) {
     <View style={styles.landing}>
       <Text style={styles.labelt}>Buzcart</Text>
       <Text style={styles.label}>Create your new shop here for free!</Text>
-        <Image source={require("../assets/home-img.jpg")}/>
+        <Image style={{ height: 500, width: '100%'}} source={require("../assets/home-img.jpg")}/>
         <View style={{paddingHorizontal: 20, width: '100%'}}>
             <TouchableOpacity style={styles.button1} onPress={onPressHandler1}>
             <Text style={styles.labelb1}>Create Shop</Text>
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 24,
+    paddingHorizontal: 20,
     color: "#000",
     backgroundColor:  "#fff",
   },
