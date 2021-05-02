@@ -2,15 +2,9 @@ import  React, { useState } from "react";
 import { Button, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeScreen from "./home";
-import Yourdetails from "./yourdetails"
+import Yourdetails from "./yourdetails";
+import Shopdetails from "./shopdetails"
 
-// function NotificationsScreen({ navigation }) {
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Button onPress={() => navigation.goBack()} title="Go back home" />
-//     </View>
-//   );
-// }
 
 const Drawer = createDrawerNavigator();
 export default function App() {
@@ -38,6 +32,7 @@ export default function App() {
     >
       <Drawer.Screen name={pname} component={ HomeScreen } />
       <Drawer.Screen name="Your Details" component={ Yourdetails } />
+      <Drawer.Screen name="Shop Details" component={ Shopdetails } />
     </Drawer.Navigator>
   );
 }

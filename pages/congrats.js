@@ -7,7 +7,7 @@ export default function Congrats({ navigation }) {
     <View style={styles.landing}>
       {/* <Text style={styles.label}>Congrats"</Text> */}
       <Text style={styles.label}>Your Online Shop has been created!</Text>
-        <Image source={require("../assets/home-img.jpg")}/>
+        <Image style={{ height: 500, width: '100%'}} source={require("../assets/home-img.jpg")}/>
         <View style={{paddingHorizontal: 20, width: '100%'}}>
             <TouchableOpacity style={styles.button1} onPress={onPressHandler}>
             <Text style={styles.labelb1}>Login</Text>

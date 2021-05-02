@@ -37,7 +37,7 @@ export default function ImagePickerExample() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <TouchableOpacity onPress={pickImage} style={{ backgroundColor: '#17B1C2', paddingHorizontal: 20, paddingVertical:  10 }} >
-        <Text style={{ color: '#fff', fontSize: 16  }}>Pick your image from camera roll</Text>
+        <Text style={{ color: '#fff', fontSize: 16  }}>Pick shop logo from camera roll</Text>
       </TouchableOpacity>
       {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 20 }} />

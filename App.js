@@ -8,6 +8,9 @@ import Congrats from './pages/congrats';
 import Login from './pages/login';
 import Register from './pages/register';
 import Dashboard from './pages/dashboard';
+import Ainvent from './pages/addInventory';
+import Cinvent from './pages/currentInventory';
+import Pdetail from './pages/ProductDetail';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -38,7 +41,19 @@ export default function App() {
         component={Dashboard}
         options={{header: () => null}}
         />
+        <Stack.Screen 
+        name="Add-Inventory"
+        component={Ainvent}
+        />
+        <Stack.Screen 
+        name="Current-Inventory"
+        component={Cinvent}
+        />
+        <Stack.Screen 
+        name="Product-Detail"
+        component={Pdetail}
+        />
       </Stack.Navigator>
-          </NavigationContainer>
+    </NavigationContainer>
   );
 }

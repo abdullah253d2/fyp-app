@@ -9,25 +9,21 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-import ImgPick from '../components/imgpicker'
+import ImgPick from '../components/logoimgpicker'
 
 class Yourdetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Abdullah",
+      name: "Shoe Store",
+      url: "mas.buzcart.pk",
       TextInputDisableStatus1: false,
-      TextInputDisableStatus: false, 
-      number: "03444326626",
-      email: "",
-      cnic: "",
-      dob: "",
-      gender: ""
+      city: "",
+      address: "",
+      bank: "",
+      iban: ""
     };
   }
-  onEdit = () => {
-  this.setState({ TextInputDisableStatus: true })
-}
 
   render() {
     return (
@@ -38,7 +34,7 @@ class Yourdetails extends React.Component {
               <ImgPick />
             </View>
             <Text style={styles.labelinput}>
-              Name
+              Shop Name
             </Text>
           <TextInput
             style={[styles.input, { backgroundColor: this.state.TextInputDisableStatus1 ? 'transparent' : '#cecece' }]}
@@ -46,70 +42,61 @@ class Yourdetails extends React.Component {
             value={this.state.name}
             onChangeText={(name) => this.setState({ name })}
           />
-          <View style={{ flexDirection: 'row',
-        flexWrap: 'wrap', justifyContent: 'space-between',
-        alignItems: 'flex-start'}}>
             <Text style={styles.labelinput}>
-              Phone Number
+              Shop URL
             </Text>
-            <TouchableOpacity onPress={this.onEdit}  ><Text style={{ textAlign: "right", paddingRight: 20, color: "blue" }}>edit</Text></TouchableOpacity>
-            </View>
           <TextInput
-            style={[styles.input, { backgroundColor: this.state.TextInputDisableStatus ? 'transparent' : '#cecece' }]}
-            editable={this.state.TextInputDisableStatus}
-            placeholder="Number"
+            style={[styles.input, { backgroundColor: this.state.TextInputDisableStatus1 ? 'transparent' : '#cecece' }]}
+            editable={false}
+            value={this.state.url}
+            onChangeText={(url) => this.setState({ url })}
+          />
+            <Text style={styles.labelinput}>
+              City
+            </Text>
+            <TextInput
+            style={styles.input}
+            placeholder="City"
+            value={this.state.city}
+            onChangeText={(city) => this.setState({ city })}
+            onSubmitEditing={this._submit}
+            blurOnSubmit={true}
+          />
+            <Text style={styles.labelinput}>
+              Shop Address
+            </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Address"
+            value={this.state.address}
+            onChangeText={(address) => this.setState({ address })}
+            onSubmitEditing={this._submit}
+            blurOnSubmit={true}
+          />
+            <Text style={styles.labelinput}>
+              Bank Name
+            </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Bank"
+            value={this.state.bank}
+            onChangeText={(bank) => this.setState({ bank })}
+            onSubmitEditing={this._submit}
+            blurOnSubmit={true}
+          />
+                      <Text style={styles.labelinput}>
+              IBAN Number
+            </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="IBAN"
+            textContentType="telephoneNumber"
             keyboardType="numeric"
-            onSubmitEditing={this._submit}
-            blurOnSubmit={true}
-            maxLength={11}
-            value={this.state.number}
-            onChangeText={(number) => this.setState({ number })}
-          />
-            <Text style={styles.labelinput}>
-              Email
-            </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={this.state.email}
-            onChangeText={(email) => this.setState({ email })}
+            value={this.state.iban}
+            onChangeText={(iban) => this.setState({ iban })}
             onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
-            <Text style={styles.labelinput}>
-              CNIC
-            </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="CNIC"
-            value={this.state.cnic}
-            onChangeText={(cnic) => this.setState({ cnic })}
-            onSubmitEditing={this._submit}
-            blurOnSubmit={true}
-          />
-            <Text style={styles.labelinput}>
-              Date of Birth
-            </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Date"
-            value={this.state.dob}
-            onChangeText={(dob) => this.setState({ dob })}
-            onSubmitEditing={this._submit}
-            blurOnSubmit={true}
-          />
-            <Text style={styles.labelinput}>
-              Gender
-            </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Male, Female or ..."
-            value={this.state.password}
-            onChangeText={(gender) => this.setState({ gender })}
-            onSubmitEditing={this._submit}
-            blurOnSubmit={true}
-          />
-          
           <View style={{ paddingHorizontal: 20, }}>
           <TouchableOpacity
               style={styles.btnPrimary}
