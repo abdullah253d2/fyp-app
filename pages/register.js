@@ -17,8 +17,7 @@ class Register extends React.Component {
     this.state = {
       pname: "",
       sname: "",
-      slink: "",
-      number: "",
+      subdomain: "",
       email: "",
       number: "",
       password: "",
@@ -70,14 +69,14 @@ class Register extends React.Component {
             >
               <TextInput
                 style={styles.input2}
-                value={this.state.slink}
-                onChangeText={(slink) => this.setState({ slink })}
+                value={this.state.subdomain}
+                onChangeText={(subdomain) => this.setState({ subdomain })}
                 placeholder="Shop Name"
                 autoCapitalize="none"
                 onSubmitEditing={this._submit}
                 blurOnSubmit={true}
               />
-              <Text style={styles.labelinput2}>.buzcart.pk</Text>
+              <Text style={styles.labelinput2}>.buzqart.com</Text>
             </View>
             <Text style={styles.labelinput}>Email</Text>
             <TextInput
