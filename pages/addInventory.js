@@ -15,10 +15,11 @@ class AddInv extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pname: "",
-      category: "",
-      desc: "",
-      stocknumber: "",
+      prod_name: "",
+      prod_price: "",
+      prod_desc: "",
+      // stocknumber: "",
+      // prod_image:"",
     };
   }
 
@@ -37,17 +38,18 @@ class AddInv extends React.Component {
             placeholder="Name"
             style={styles.input}
             editable={false}
-            value={this.state.pname}
-            onChangeText={(pname) => this.setState({ pname })}
+            value={this.state.prod_name}
+            onChangeText={(prod_name) => this.setState({ prod_name })}
           />
             <Text style={styles.labelinput}>
-              Category
+              Price
             </Text>
           <TextInput
             style={styles.input}
-            placeholder="Add Category"
-            value={this.state.category}
-            onChangeText={(category) => this.setState({ category })}
+            placeholder="Add Price"
+            keyboardType="numeric"
+            value={this.state.prod_price}
+            onChangeText={(prod_price) => this.setState({ prod_price })}
             onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
@@ -58,12 +60,12 @@ class AddInv extends React.Component {
             style={styles.input}
             multiline
             placeholder="Add Description"
-            value={this.state.desc}
-            onChangeText={(desc) => this.setState({ desc })}
+            value={this.state.prod_desc}
+            onChangeText={(prod_desc) => this.setState({ prod_desc })}
             onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
-            <Text style={styles.labelinput}>
+            {/* <Text style={styles.labelinput}>
               Stock
             </Text>
           <TextInput
@@ -73,7 +75,7 @@ class AddInv extends React.Component {
             onChangeText={(stocknumber) => this.setState({ stocknumber })}
             onSubmitEditing={this._submit}
             blurOnSubmit={true}
-          />
+          /> */}
           <View style={{ paddingHorizontal: 20, }}>
           <TouchableOpacity
               style={styles.btnPrimary}
