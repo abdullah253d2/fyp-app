@@ -17,7 +17,7 @@ class Register extends React.Component {
     this.state = {
       pname: "",
       sname: "",
-      subdomain: "",
+      // subdomain: "",
       email: "",
       number: "",
       password: "",
@@ -27,7 +27,7 @@ class Register extends React.Component {
     return (
       <ScrollView>
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          // behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <View style={styles.main}>
             {/* <Navbar style={styles.nav} label="Register Shop" /> */}
@@ -43,7 +43,7 @@ class Register extends React.Component {
               value={this.state.pname}
               onChangeText={(pname) => this.setState({ pname })}
               placeholder="Name"
-              onSubmitEditing={this._submit}
+              // onSubmitEditing={this._submit}
               blurOnSubmit={true}
             />
             <Text style={styles.labelinput}>
@@ -54,10 +54,10 @@ class Register extends React.Component {
               value={this.state.sname}
               onChangeText={(sname) => this.setState({ sname })}
               placeholder="Shop Name"
-              onSubmitEditing={this._submit}
+              // onSubmitEditing={this._submit}
               blurOnSubmit={true}
             />
-            <Text style={styles.labelinput}>
+            {/* <Text style={styles.labelinput}>
               Shop Link<Text style={styles.red}>*</Text>
             </Text>
             <View
@@ -77,7 +77,7 @@ class Register extends React.Component {
                 blurOnSubmit={true}
               />
               <Text style={styles.labelinput2}>.buzqart.com</Text>
-            </View>
+            </View> */}
             <Text style={styles.labelinput}>Email</Text>
             <TextInput
               style={styles.input}
@@ -87,7 +87,7 @@ class Register extends React.Component {
               autoCapitalize="none"
               keyboardType="email-address"
               textContentType="emailAddress"
-              onSubmitEditing={this._submit}
+              // onSubmitEditing={this._submit}
               blurOnSubmit={true}
             />
             <Text style={styles.labelinput}>
@@ -100,7 +100,8 @@ class Register extends React.Component {
               placeholder="Number"
               textContentType="telephoneNumber"
               keyboardType="numeric"
-              onSubmitEditing={this._submit}
+              maxLength={11}
+              // onSubmitEditing={this._submit}
               blurOnSubmit={true}
             />
             <Text style={styles.labelinput}>
@@ -112,11 +113,11 @@ class Register extends React.Component {
               onChangeText={(password) => this.setState({ password })}
               secureTextEntry={true}
               placeholder="Password"
-              onSubmitEditing={this._submit}
+              // onSubmitEditing={this._submit}
               blurOnSubmit={true}
             />
             <View style={{ paddingHorizontal: 20, width: "100%" }}>
-              <TouchableOpacity onPress={this._submit} style={styles.button1}>
+              <TouchableOpacity onPress={this.registeration} style={styles.button1}>
                 <Text style={styles.labelb1}>Register</Text>
               </TouchableOpacity>
             </View>
@@ -125,10 +126,43 @@ class Register extends React.Component {
       </ScrollView>
     );
   }
-  _submit = () => {
-    alert(`Confirmation email has been sent to ${this.state.email}`);
-    this.props.navigation.navigate("Congratulations");
-  };
+  registeration = () => {
+    var pname=this.state.pname;
+    var sname=this.state.sname;
+    var email=this.state.email;
+    var number=this.state.number;
+    var password=this.state.password;
+    if(pname.length==0 || sname.length==0 || number.length==0 || password.length==0){
+      alert("Required Field Is Missing");
+    }
+    else{
+        fetch('https://buzqart.com/phpApp/register.php',
+        {
+            method: 'POST',
+            headers: 
+            {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+            {
+              pname:pname,
+              sname:sname,
+              email:email,
+              number:number,
+              password:password
+          })
+        })
+          .then((response) => response.json())
+          .then((res) => {
+            alert(res.message);
+            this.props.navigation.navigate("Buzqart");
+          })
+          .catch((error) => {
+            alert("ERROR! "+error);
+        });
+      };
+    }
 }
 
 const styles = StyleSheet.create({

@@ -1,14 +1,14 @@
 import  React, { useState } from "react";
-import { Button, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeScreen from "./home";
 import Yourdetails from "./yourdetails";
-import Shopdetails from "./shopdetails"
-
+import Shopdetails from "./shopdetails";
+import Constants from '../helpers/constants';
 
 const Drawer = createDrawerNavigator();
-export default function App() {
-  const [pname, setpname] = useState("Abdullah");
+
+export default function App({ navigation }) {
+  const [pname, setpname] = useState(Constants.username);
   return (
     <Drawer.Navigator
       drawerPosition="left"
@@ -36,3 +36,5 @@ export default function App() {
     </Drawer.Navigator>
   );
 }
+
+

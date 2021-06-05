@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 
 export default function Congrats({ navigation }) {
-  const onPressHandler = () => {navigation.navigate('Buzcart');}
+  const onPressHandler = () => {navigation.navigate('Buzqart');}
   return (
     <View style={styles.landing}>
       {/* <Text style={styles.label}>Congrats"</Text> */}
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 22,
+    paddingLeft:20,
     color: "#000",
   },
   button1: {

@@ -2,41 +2,53 @@ import React, { useState, useEffect } from "react";
 import { Text, Image, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Constants from '../helpers/constants'
 
-export default function ImagePickerExample() {
+export default function ImgPick(props) {
   const [image, setImage] = useState(null);
+  async function takePhotoAndUpload() {
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const {
-          status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
-      }
-    })();
-  }, []);
-
-  const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+      allowsEditing: false, // higher res on iOS
       aspect: [4, 3],
-      quality: 1,
     });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
+  
+    if (result.cancelled) {
+      return;
     }
-  };
+    console.log("imageicker ",JSON.stringify(result))
+  
+    let localUri = result.uri;
+    let filename = localUri.split('/').pop();
+    setImage(result.uri);
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+  
+    let formData = new FormData();
+    formData.append('photo', { uri: localUri, name: filename, type });
+  
+    return await fetch('https://www.buzqart.com/phpApp/imgupload.php', {
+      method: 'POST',
+      body: formData,
+      header: {
+        'content-type': 'multipart/form-data',
+      },
+    })
+    .then((response) => response.json())
+    .then((res) => {
+      // alert(JSON.stringify(res.prod_img));
+      console.log("????" , res.prod_img);
+      props.getval(res.prod_img);
+      if(res.err != undefined){alert(res.err);setImage(null);}
+    })
+    .catch((error) => {
+      alert("ERROR! "+error);
+  });
+  }
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <TouchableOpacity onPress={pickImage} style={{ backgroundColor: '#17B1C2', paddingHorizontal: 20, paddingVertical:  10 }} >
+      <TouchableOpacity onPress={takePhotoAndUpload} style={{ backgroundColor: '#17B1C2', paddingHorizontal: 20, paddingVertical:  10 }} >
         <Text style={{ color: '#fff', fontSize: 16  }}>Pick Product Image from camera roll</Text>
       </TouchableOpacity>
       {image && (

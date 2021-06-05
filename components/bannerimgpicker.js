@@ -4,9 +4,9 @@ import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Constants from '../helpers/constants'
 
-export default function ImgPickLogo(props) {
+export default function ImgPickBanner(props) {
   const [image, setImage] = useState(null);
-  async function takePhotoAndUploadq() {
+  async function takePhotoAndUpload() {
 
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: false, // higher res on iOS
@@ -37,7 +37,7 @@ export default function ImgPickLogo(props) {
     .then((response) => response.json())
     .then((res) => {
       console.log("????" , res.prod_img);
-      props.getval(res.prod_img);
+      props.getvalu(res.prod_img);
       if(res.err != undefined){alert(res.err);setImage(null);}
     })
     .catch((error) => {
@@ -47,8 +47,8 @@ export default function ImgPickLogo(props) {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <TouchableOpacity onPress={takePhotoAndUploadq} style={{ backgroundColor: '#17B1C2', paddingHorizontal: 20, paddingVertical:  10 }} >
-        <Text style={{ color: '#fff', fontSize: 16  }}>Pick a Store Logo</Text>
+      <TouchableOpacity onPress={takePhotoAndUpload} style={{ backgroundColor: '#17B1C2', paddingHorizontal: 20, paddingVertical:  10 }} >
+        <Text style={{ color: '#fff', fontSize: 16  }}>Pick a Store Banner</Text>
       </TouchableOpacity>
       {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 20 }} />

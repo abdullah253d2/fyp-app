@@ -11,6 +11,7 @@ import Dashboard from './pages/dashboard';
 import Ainvent from './pages/addInventory';
 import Cinvent from './pages/currentInventory';
 import Pdetail from './pages/ProductDetail';
+import EditProducts from './pages/editInventory';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -19,7 +20,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
-        name="Buzcart"
+        name="Buzqart"
         component={Landing}
         options={{header: () => null}}
         />
@@ -48,6 +49,10 @@ export default function App() {
         <Stack.Screen 
         name="Current-Inventory"
         component={Cinvent}
+        />
+        <Stack.Screen 
+        name="Edit-Product"
+        component={EditProducts}
         />
         <Stack.Screen 
         name="Product-Detail"
