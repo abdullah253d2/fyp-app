@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
+import Constants from '../helpers/constants'
 
 class Login extends React.Component {
   constructor(props) {
@@ -18,11 +19,22 @@ class Login extends React.Component {
       password: "",
     };
   }
+  componentDidMount(){
+    Constants.user_id="";
+    Constants.username="";
+    Constants.sname = "";
+    Constants.s_city = "";
+    Constants.s_address = "";
+    Constants.number="";
+    Constants.email="";
+    Constants.cnic="";
+    Constants.gender="";
+  }
   render() {
     return (
 <View style={styles.main}>
          {/* <Navbar label="Login" /> */}
-         <Text style={styles.label}>Buzcart</Text>
+         <Text style={styles.label}>Buzqart</Text>
          <Text style={styles.labels}>Welcome to your online shop.</Text>
            
             <TextInput  style={styles.input}
@@ -51,7 +63,50 @@ class Login extends React.Component {
     );
   }
   login_submit = () => {
-    alert(`loging in`);this.props.navigation.navigate("Dashboard");
+    var number=this.state.number;
+    var password=this.state.password;
+    if(number.length==0 || password.length==0){
+      alert("Required Field Is Missing");
+    }
+    else{
+      fetch('https://buzqart.com/phpApp/login.php',
+      {
+          method: 'POST',
+          headers: 
+          {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+          {
+            number:number,
+            password:password,
+        })
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if(res.message == "Sorry there was an error!"){
+            alert(res.message);
+          }
+          else{
+            Constants.user_id=res.user_id;
+            Constants.username=res.username;
+            Constants.sname=res.sname;
+            Constants.s_city=res.s_city;
+            Constants.s_address=res.s_address;
+            Constants.number=res.number;
+            Constants.email=res.email;
+            Constants.cnic=res.cnic;
+            Constants.gender=res.gender;
+            alert(res.message);
+            this.props.navigation.navigate("Dashboard");
+          }
+        })
+        .catch((error) => {
+          alert("ERROR! "+error);
+      });
+    }
+    
   };
 }
 

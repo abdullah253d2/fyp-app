@@ -1,0 +1,11 @@
+var user_id = "";
+var username = "";
+var sname = "";
+var s_city = "";
+var s_address = "";
+var number="";
+var email="";
+var cnic="";
+var gender= "";
+var prod_img= "";
+var editProductId="";

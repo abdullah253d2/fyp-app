@@ -10,41 +10,50 @@ import {
   ScrollView,
 } from "react-native";
 import ImgPick from '../components/imgpicker'
+import Constants from '../helpers/constants';
 
 class Yourdetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Abdullah",
+      user_id: "",
+      pname: "",
       TextInputDisableStatus1: false,
       TextInputDisableStatus: false, 
-      number: "03444326626",
+      number: "",
       email: "",
       cnic: "",
-      dob: "",
+      // dob: "",
       gender: ""
     };
   }
   onEdit = () => {
   this.setState({ TextInputDisableStatus: true })
 }
-
+componentDidMount(){
+  this.setState({  user_id: Constants.user_id })
+  this.setState({  pname: Constants.username })
+  this.setState({  number: Constants.number })
+  this.setState({  email: Constants.email })
+  this.setState({  cnic: Constants.cnic })
+  this.setState({  gender: Constants.gender })
+}
   render() {
     return (
       <ScrollView>
       <View style={styles.main}>
         
-            <View style={styles.imgdiv}>
+            {/* <View style={styles.imgdiv}>
               <ImgPick />
-            </View>
+            </View> */}
             <Text style={styles.labelinput}>
               Name
             </Text>
           <TextInput
             style={[styles.input, { backgroundColor: this.state.TextInputDisableStatus1 ? 'transparent' : '#cecece' }]}
             editable={false}
-            value={this.state.name}
-            onChangeText={(name) => this.setState({ name })}
+            value={this.state.pname}
+            // onChangeText={(pname) => this.setState({ pname })}
           />
           <View style={{ flexDirection: 'row',
         flexWrap: 'wrap', justifyContent: 'space-between',
@@ -59,7 +68,6 @@ class Yourdetails extends React.Component {
             editable={this.state.TextInputDisableStatus}
             placeholder="Number"
             keyboardType="numeric"
-            onSubmitEditing={this._submit}
             blurOnSubmit={true}
             maxLength={11}
             value={this.state.number}
@@ -73,7 +81,6 @@ class Yourdetails extends React.Component {
             placeholder="Email"
             value={this.state.email}
             onChangeText={(email) => this.setState({ email })}
-            onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
             <Text style={styles.labelinput}>
@@ -82,12 +89,12 @@ class Yourdetails extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="CNIC"
+            maxLength={13}
             value={this.state.cnic}
             onChangeText={(cnic) => this.setState({ cnic })}
-            onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
-            <Text style={styles.labelinput}>
+            {/* <Text style={styles.labelinput}>
               Date of Birth
             </Text>
           <TextInput
@@ -95,18 +102,16 @@ class Yourdetails extends React.Component {
             placeholder="Date"
             value={this.state.dob}
             onChangeText={(dob) => this.setState({ dob })}
-            onSubmitEditing={this._submit}
             blurOnSubmit={true}
-          />
+          /> */}
             <Text style={styles.labelinput}>
               Gender
             </Text>
           <TextInput
             style={styles.input}
             placeholder="Male, Female or ..."
-            value={this.state.password}
+            value={this.state.gender}
             onChangeText={(gender) => this.setState({ gender })}
-            onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
           
@@ -123,12 +128,45 @@ class Yourdetails extends React.Component {
     );
   }
   login_submit = () => {
-    alert(`Saving`);
+    var user_id=this.state.user_id;
+    var number=this.state.number;
+    var email=this.state.email;
+    var cnic=this.state.cnic;
+    var gender=this.state.gender;
+    if(number.length=="" || email.length=="" || cnic.length=="" || gender.length==""){
+      alert("Some Missing Field");
+    }
+    else{
+      fetch('https://buzqart.com/phpApp/yourdetail.php',
+      {
+          method: 'POST',
+          headers: 
+          {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+          {
+            user_id:user_id,
+            number:number,
+            email:email,
+            cnic:cnic,
+            gender:gender
+        })
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          alert(res.message);
+        })
+        .catch((error) => {
+          alert("ERROR! "+error);
+      });
+    }
   };
 }
 
 const styles = StyleSheet.create({
-  main:{height: "100%"},
+  main:{height: "100%",marginTop:20},
   imgdiv: {
     width: "100%",
     height: 300,

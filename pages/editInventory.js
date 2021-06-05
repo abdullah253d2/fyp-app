@@ -12,30 +12,57 @@ import {
 import ImgPick from '../components/imgpickerprod'
 import Constants from '../helpers/constants'
 
-class AddInv extends React.Component {
+class EditInv extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       prod_name: "",
       prod_price: "",
       prod_desc: "",
-      prod_image: ""
+      prod_image: "",
       // stocknumber: "",
-      // prod_image:"",
+      product_id:Constants.editProductId
     };
   }
-
+  componentDidMount(){
+    // alert(this.state.product_id);
+    fetch('https://buzqart.com/phpApp/getproduct.php',
+    {
+        method: 'POST',
+        headers: 
+        {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+        {
+          product_id:Constants.editProductId,
+      })
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        this.setState({  prod_name: res.prod_name })
+        this.setState({  prod_price: res.prod_price })
+        this.setState({  prod_desc: res.prod_desc })
+        // alert(res.prod_price);
+        // this.props.navigation.navigate("Dashboard");
+        // alert(prod_image);
+      })
+      .catch((error) => {
+        alert("ERROR! "+error);
+    });
+  }
   render() {
     return (
       <ScrollView>
       <View style={styles.main}>
         
-            <View style={styles.imgdiv}>
+            {/* <View style={styles.imgdiv}>
               <ImgPick
               fromAdInventory = {true}
               getval =  { (val)=> this.setState({ prod_image: val })}
               />
-            </View>
+            </View> */}
             <Text style={styles.labelinput}>
               Product Name
             </Text>
@@ -82,7 +109,7 @@ class AddInv extends React.Component {
               style={styles.btnPrimary}
               onPress={this.Add}
             >
-            <Text style={styles.labelbtn}>ADD</Text>
+            <Text style={styles.labelbtn}>SAVE</Text>
             </TouchableOpacity>
           </View>
       </View>
@@ -90,17 +117,17 @@ class AddInv extends React.Component {
     );
   }
   Add = () => {
-    var user_id=Constants.user_id;
+    var product_id=Constants.editProductId;
     var prod_name=this.state.prod_name;
     var prod_price=this.state.prod_price;
     var prod_desc=this.state.prod_desc;
-    var prod_image=this.state.prod_image;
+    // var prod_image=this.state.prod_image;
     // alert(prod_image);
     if(prod_name.length=="" || prod_price.length=="" || prod_desc.length==""){
       alert("Some Missing Field");
     }
     else{
-      fetch('https://buzqart.com/phpApp/addproduct.php',
+      fetch('https://buzqart.com/phpApp/editproduct.php',
       {
           method: 'POST',
           headers: 
@@ -110,11 +137,11 @@ class AddInv extends React.Component {
           },
           body: JSON.stringify(
           {
-            user_id:user_id,
+            product_id:product_id,
             prod_name:prod_name,
             prod_price:prod_price,
             prod_desc:prod_desc,
-            prod_image:prod_image
+            // prod_image:prod_image
         })
       })
         .then((response) => response.json())
@@ -169,4 +196,4 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 });
-export default AddInv;
+export default EditInv;

@@ -9,29 +9,43 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-import ImgPick from '../components/logoimgpicker'
+import Constants from '../helpers/constants';
+import ImgPickLogo from '../components/logoimgpicker';
+import ImgPickBanner from '../components/bannerimgpicker'
 
 class Yourdetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Shoe Store",
-      url: "mas.buzcart.pk",
+      user_id: "",
       TextInputDisableStatus1: false,
-      city: "",
-      address: "",
-      bank: "",
-      iban: ""
+      s_city: "",
+      s_address: "",
+      imgBtn: true,
+      store_logo:"",
+      store_banner:""
     };
   }
-
+  componentDidMount(){
+    this.setState({  s_city: Constants.s_city })
+    this.setState({  s_address: Constants.s_address })
+    this.setState({  user_id: Constants.user_id })
+  }
   render() {
     return (
       <ScrollView>
       <View style={styles.main}>
-        
             <View style={styles.imgdiv}>
-              <ImgPick />
+              <ImgPickLogo
+              fromAdInventory = {true}
+              getval =  { (val)=> this.setState({ store_logo: val })}
+              />
+            </View>
+            <View style={styles.imgdiv}>
+              <ImgPickBanner
+              fromAdInventory = {true}
+              getvalu =  { (val)=> this.setState({ store_banner: val })}
+              />
             </View>
             <Text style={styles.labelinput}>
               Shop Name
@@ -39,10 +53,10 @@ class Yourdetails extends React.Component {
           <TextInput
             style={[styles.input, { backgroundColor: this.state.TextInputDisableStatus1 ? 'transparent' : '#cecece' }]}
             editable={false}
-            value={this.state.name}
-            onChangeText={(name) => this.setState({ name })}
+            value={Constants.sname}
+            // onChangeText={(sname) => this.setState({ sname })}
           />
-            <Text style={styles.labelinput}>
+            {/* <Text style={styles.labelinput}>
               Shop URL
             </Text>
           <TextInput
@@ -50,16 +64,16 @@ class Yourdetails extends React.Component {
             editable={false}
             value={this.state.url}
             onChangeText={(url) => this.setState({ url })}
-          />
+          /> */}
             <Text style={styles.labelinput}>
               City
             </Text>
             <TextInput
             style={styles.input}
             placeholder="City"
-            value={this.state.city}
-            onChangeText={(city) => this.setState({ city })}
-            onSubmitEditing={this._submit}
+            value={this.state.s_city}
+            onChangeText={(s_city) => this.setState({ s_city })}
+            // onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
             <Text style={styles.labelinput}>
@@ -68,12 +82,13 @@ class Yourdetails extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="Address"
-            value={this.state.address}
-            onChangeText={(address) => this.setState({ address })}
-            onSubmitEditing={this._submit}
+            multiline={true}
+            value={this.state.s_address}
+            onChangeText={(s_address) => this.setState({ s_address })}
+            // onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
-            <Text style={styles.labelinput}>
+            {/* <Text style={styles.labelinput}>
               Bank Name
             </Text>
           <TextInput
@@ -81,7 +96,7 @@ class Yourdetails extends React.Component {
             placeholder="Bank"
             value={this.state.bank}
             onChangeText={(bank) => this.setState({ bank })}
-            onSubmitEditing={this._submit}
+            // onSubmitEditing={this._submit}
             blurOnSubmit={true}
           />
                       <Text style={styles.labelinput}>
@@ -94,13 +109,13 @@ class Yourdetails extends React.Component {
             keyboardType="numeric"
             value={this.state.iban}
             onChangeText={(iban) => this.setState({ iban })}
-            onSubmitEditing={this._submit}
+            // onSubmitEditing={this._submit}
             blurOnSubmit={true}
-          />
+          /> */}
           <View style={{ paddingHorizontal: 20, }}>
           <TouchableOpacity
               style={styles.btnPrimary}
-              onPress={this.login_submit}
+              onPress={this.ShopDetails}
             >
               <Text style={styles.labelbtn}>Save</Text>
             </TouchableOpacity>
@@ -109,17 +124,52 @@ class Yourdetails extends React.Component {
       </ScrollView>
     );
   }
-  login_submit = () => {
-    alert(`Saving`);
-  };
+  ShopDetails = () => {
+    var user_id=this.state.user_id;
+    var s_city=this.state.s_city;
+    var s_address=this.state.s_address;
+    var store_logo=this.state.store_logo;
+    var store_banner=this.state.store_banner;
+    if(user_id.length=="" || s_city.length=="" || s_address.length==""){
+      alert("Some Missing Field");
+    }
+    else{
+          fetch('https://buzqart.com/phpApp/shopdetail.php',
+          {
+              method: 'POST',
+              headers: 
+              {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(
+              {
+                user_id:user_id,
+                s_city:s_city,
+                s_address:s_address,
+                store_logo:store_logo,
+                store_banner:store_banner
+            })
+          })
+            .then((response) => response.json())
+            .then((res) => {
+              alert(res.message);
+            })
+            .catch((error) => {
+              alert("ERROR! "+error);
+          });
+      }
+    }
 }
 
 const styles = StyleSheet.create({
   main:{height: "100%"},
   imgdiv: {
-    width: "100%",
-    height: 300,
+    marginHorizontal: 40,
+    marginVertical: 30,
+    alignItems: "center"
   },
+  img: { height: 300, width: "100%" },
   labelinput: {
     textAlign: "left",
     fontSize: 16,

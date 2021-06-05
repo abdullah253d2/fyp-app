@@ -7,9 +7,9 @@ export default function Landing({ navigation }) {
   const onPressHandler1 = () => {navigation.navigate('Register');}
   return (
     <View style={styles.landing}>
-      <Text style={styles.labelt}>Buzcart</Text>
+      <Text style={styles.labelt}>Buzqart</Text>
       <Text style={styles.label}>Create your new shop here for free!</Text>
-        <Image style={{ height: 500, width: '100%'}} source={require("../assets/home-img.jpg")}/>
+        <Image style={{ height: 480, width: '100%'}} source={require("../assets/home-img.jpg")}/>
         <View style={{paddingHorizontal: 20, width: '100%'}}>
             <TouchableOpacity style={styles.button1} onPress={onPressHandler1}>
             <Text style={styles.labelb1}>Create Shop</Text>

@@ -12,19 +12,26 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
+import Constants from '../helpers/constants';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      link: "mas.buzcart.pk",
-      sales: "5000",
+      // link: "mas.buzqart.pk",
+      sales: "0",
     };
   }
+
+
+
   render() {
     return (
       <View style={styles.main}>
-        <View
+        <TouchableOpacity onPress={this.logout} >
+        <Text style={styles.link}>Logout</Text>
+        </TouchableOpacity>
+        {/* <View
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
@@ -39,7 +46,7 @@ class Home extends React.Component {
             <Text style={styles.link}>https://{this.state.link}</Text>
           </TouchableOpacity>
           <Switching />
-        </View>
+        </View> */}
         <Text style={styles.text}>Your Sales RS:</Text>
         <TextInput
           style={styles.input}
@@ -69,6 +76,9 @@ class Home extends React.Component {
       </View>
     );
   }
+  logout = () => {
+    this.props.navigation.navigate("Login");
+  };
   nav1 = () => {
     this.props.navigation.navigate("Add-Inventory");
   };
@@ -81,6 +91,8 @@ const styles = StyleSheet.create({
   link: {
     fontSize: 18,
     textAlignVertical: "center",
+    textAlign: "right",
+    margin: 20,
     color: "#17B1C2",
   },
 
